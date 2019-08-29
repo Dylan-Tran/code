@@ -1,0 +1,138 @@
+import torch
+from torch.utils.data import Dataset, DataLoader
+import torchvision.datasets as datasets
+from torchvision import transforms, utils
+import numpy as np
+import matplotlib.pyplot as plt
+import torch.nn as nn
+import torch.nn.functional as F
+import torchvision
+
+from PIL import ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True
+
+
+class CNN(nn.Module):
+    def __init__(self):
+        '''
+        https://pytorch.org/docs/master/nn.html
+        to add:
+            nn.Conv2d(in_channels, out_channels, kernel_size, stride, padding)
+                        (3 for RGB), (The number of layers)
+            nn.relu(x)
+            nn.MaxPool2d(kernel_size, stride, padding)
+            nn.Linear(in_features, out_features)       
+        '''
+        super(CNN, self).__init__()
+        self.Conv1 = nn.Conv2d(3, 32, 3) #254 x254
+        self.pool1 = nn.MaxPool2d(2, 2) #127 X 127
+        
+        self.Conv2 = nn.Conv2d(32, 32, 3) #125 x 125
+        self.pool2 = nn.MaxPool2d(2,2,1) #63 x 63
+        
+        self.fc1 = nn.Linear(63*63*32, 120)
+        self.fc2 = nn.Linear(120, 4)
+        
+    def forward(self, x):
+        x = self.pool1(F.relu(self.Conv1(x)))
+        x = self.pool2(F.relu(self.Conv2(x)))
+        
+        x = x.view(x.size(0), -1)
+        x = F.relu(self.fc1(x))
+        x = self.fc2(x)
+        return x
+
+def imshow(img):
+    npimg = img.numpy()
+    plt.imshow(np.transpose(npimg, (1,2, 0)))
+
+
+EPOCH = 10
+batch_size = 40
+divider = 5
+global_correct = 0
+global_total = 0
+
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+transform = transforms.Compose([
+            transforms.Resize([256, 256]),
+            transforms.ToTensor()
+])
+
+#preparing data
+dataset = datasets.ImageFolder(root= r"/home/dylant/Desktop/Data", transform =transform)
+data_size = len(dataset.samples)
+
+
+idx = list(range(data_size))
+np.random.shuffle(idx)
+
+data_spilt = int(data_size/divider)
+
+
+for k in range(divider):
+    net = CNN()
+    criterion = nn.CrossEntropyLoss()
+    optimizer = torch.optim.SGD(net.parameters(), lr =.001, momentum = 0.9) 
+    if torch.cuda.device_count() > 1:
+      print("Let's use", torch.cuda.device_count(), "GPUs!")
+      net = nn.DataParallel(net)
+    net.to(device)
+    print("k = " + str(k))
+    
+    train_idx = idx[0:data_spilt*(4-k)] + idx[data_spilt*(5-k): data_size]
+    valid_idx = idx[data_spilt*(4-k):data_spilt*(5-k)]
+    
+    train_sample = torch.utils.data.SubsetRandomSampler(train_idx)
+    valid_sample = torch.utils.data.SubsetRandomSampler(valid_idx)
+    
+    train_loader = torch.utils.data.DataLoader(dataset, batch_size = batch_size, drop_last = True, sampler = train_sample)
+    valid_loader = torch.utils.data.DataLoader(dataset, batch_size = batch_size, drop_last = True, sampler = valid_sample)
+    
+    print("Trainning and vaildation data ready for trainning")
+   
+    print("Trainning")
+    for epoch in range(EPOCH):
+        running_loss = 0.0
+        for i, data in enumerate(train_loader):
+                #print(i)
+                inputs, labels = data
+                '''
+                imshow(torchvision.utils.make_grid(inputs))
+                plt.show()
+                print(labels)
+                
+                '''
+                inputs, labels = inputs.to(device), labels.to(device)
+                
+                optimizer.zero_grad()
+                
+                outputs = net(inputs)
+                #print("Outside: input size", inputs.size(), "output_size", outputs.size())
+                loss = criterion(outputs, labels)
+                loss.backward()
+                optimizer.step()
+                
+                running_loss += loss.item()
+                if(i % 32 == 31):
+                     print('[%d, %5d] loss: %.3f' % (epoch + 1, i + 1, running_loss))
+                     running_loss = 0.0
+    correct = 0
+    total = 0
+
+    with torch.no_grad():
+        for data in valid_loader:
+            inputs, labals = data
+            outputs = net(inputs)
+            
+            _, predicted = torch.max(outputs.data, 1)
+            total += labels.size(0)
+            print(predicted.size())
+            print(labels.size())
+            correct += (predicted == labels).sum().item()
+    global_correct += correct
+    global_total += total            
+    print('Accuracy of the network: %d %%' % ( 100 * correct / total))
+        
+print('Global accuracy is %d %%' % (100*global_correct/global_total))
