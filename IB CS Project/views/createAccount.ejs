@@ -1,0 +1,94 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <title>Create Account</title>
+    <link rel="stylesheet" type ="text/css" href ="style.css">
+    <script>
+        function cancel(){
+            window.location = "index";
+        }
+    </script>
+</head>
+<body>
+    <!--Header-->
+    <header id = "main-header">
+            <h1>Luxury Beauty Salon</h1>
+        </header>
+    
+        <!--Navbar-->
+        <div class = "wrapper">
+        <nav id = "nav">
+                <ul> 
+                        <li><a href="Index">Home</a></li> 
+                        <li><a href="AboutUs">About us</a></li>
+                        <li><a href="Calendar">Calendar</a></li>
+                        <li><a href="LoginToCreate">Create an appointment</a></li>
+                        <li><a href="Login">Account</a></li>
+                    </ul>
+        </nav>
+        </div>
+    
+        <div class="top-container">
+            <h1>Creating an Account</h1>
+        </div>
+
+        
+        <% if(errors != undefined){ %>
+            <ul>
+                <% errors.forEach(function(error){ %>
+                    <li><%= error.msg %></li>
+            <%   }) %>
+            </ul>
+        <% } %>
+
+        
+        <form class = "loginform" method="POST" action = "CreateAccount">
+            <label>Your username will be your first name and the first 4 letter of your last name with an underscore between</label>
+            <br>
+            <p>Example: <br>  First name: Sherlock <br> Last name: Holmes <br> Username: Sherlock_Holm</p>
+            <div class = "formgroup">
+                <label>First Name</label>
+                <input type="text" name="FirstName" required>
+            </div>
+
+            <div class="formgroup">
+                <label>Last Name</label>
+                <input type="text" name="LastName" required>
+            </div>
+
+            <div class="formgroup">
+                <label>Email</label>
+                <input type="text" name="Email" required>
+            </div>
+            
+            <div class = "formgroup">
+                <label>Birthday</label>
+                <input type = "date" name="DOB">
+            </div>
+
+            <div class="formgroup">
+                <label>Phone Number 1 (Only Number) Sample: XXXXXXX</label>
+                <input type="number" name ="Number1" required>
+            </div>
+            
+            <div class = "formgroup">
+                <label>Phone Number 2 (not required)</label>
+                <input type="number" name = "Number2">
+            </div>
+
+            <div>
+                <label>Create Password</label>
+                <input type = "text" name = "Password" required>
+            </div>
+            <br>
+            <br>
+            <div>
+                <input type = "submit" value="Create Account" name = "submit">
+                <button type = "button" onclick = "cancel()">Cancel</button>
+            </div>
+        </form>
+
+
+</body>
+</html>
+

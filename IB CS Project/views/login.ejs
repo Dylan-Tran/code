@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>login</title>
+    <link rel ="stylesheet" type = "text/css" href = "/style.css">
+    <script>
+        function cancel(){
+            window.location = "index";
+        }
+    </script>
+</head>
+<body>
+    
+    <!--Header-->
+    <header id = "main-header">
+            <h1>Luxury Beauty Salon</h1>
+    </header>
+
+    <!--Navbar-->
+    <div class = "wrapper">
+        <nav id = "nav">
+            <ul> 
+                <li><a href = "Index">Home</a></li> 
+                <li><a href="AboutUs">About us</a></li>
+                <li><a href="Calendar">Calendar</a></li>
+                <li><a href="LoginToCreate">Create an appointment</a></li>
+                <li><a href="Login">Account</a></li>
+            </ul>
+        </nav>
+    </div>
+
+
+    <section class = "top-container">
+        <h1>Login</h1>
+    </section>
+
+    <% if(errors != undefined){ %>
+        <ul>
+            <% errors.forEach(function(error){ %>
+                <li><%= error.msg %></li>
+        <%   }) %>
+        </ul>
+    <% } %>
+
+    <% if(message.length > 0){ %>
+        <ul>
+            <li><%= message%></li>
+        </ul>
+    <% } %>
+
+    <form class = "loginform" method = "POST" action= "/login">
+        <label>Your username will be your first name and the first 4 letter of your last name with an underscore between</label>
+        <br>
+        <p>Example: <br>  First name: Sherlock <br> Last name: Holmes <br> Username: Sherlock_Holm</p>
+        
+        
+            <div class = "formgroup">
+                <label>Username:</label> 
+                <input type="text" name="Username" placeholder="Enter username">
+            </div>
+            
+            <div class = "formgroup">
+                <label>Password:</label>
+                <input type="password" name="Password" placeholder="Enter password">        
+            </div>
+        
+
+            <div class = "box-container-three">
+                <div>
+                <input class = "loginform btn" type = "submit" value="Login" name = "submit">
+                </div>
+                <div>
+                <button class ="loginform btn" type = "button" onclick="cancel()">Cancel</button>
+                </div> 
+            </div>
+    </form>
+
+<br>
+
+<div>
+    <a href = 'CreateAccount'>Create an account</a>
+</div>
+
+    <br>
+    <br>
+    
+    <div>
+        <a href='ForgotPassword'>forgot password</a>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <title>Request view</title>
+    <link rel ="stylesheet" type="text/css" href = "style.css">
+</head>
+<body>
+    <!--Header-->
+    <header id = "main-header">
+            <h1>Luxury Beauty Salon</h1>
+    </header>
+
+    <!--Navbar-->
+    <div class = "wrapper">
+        <nav id = "nav">
+                <ul> 
+                        <li><a href = "Index">Home</a></li> 
+                        <li><a href="AboutUs">About us</a></li>
+                        <li><a href= "calendar">Calendar</a></li>
+                        <li><a href="LoginToCreate">Create an appointment</a></li>
+                        <li><a href="Login">Account</a></li>
+                </ul>
+        </nav>
+    </div>
+
+    <% if(message.length > 0){ %>
+        <ul>
+            <li><%= message%></li>
+        </ul>
+    <% } %>
+
+
+    <div id = "adminContainer">
+        <div id = "confirm-box">
+            <h2>Confirm request</h2>
+            <form method="POST" action="requestToAppointment">
+                <label>Request ID you would like to confirm</label>
+                <input type="text" name="requestID">
+                <br>
+                <br>
+                <div class="formgroup">
+                    <label>Pick a Start Time</label>
+                    <div class="time">
+                        <input type="textbox" name="shour" required>
+                        <p id="rightpad">hours</p>
+                        <input type="textbox" name="smin" required>
+                        <p id="rightpad">mins</p>
+                        <select name="sam">
+                            <option value="AM">AM</option>
+                            <option value="PM">PM</option>
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <div class="time">
+                    <label>Pick a End Time</label>
+                    <br>
+                    <input type="textbox" name="ehour" required>
+                    <p id="rightpad">hours</p>
+                    <input type="textbox" name="emin" required>
+                    <p id="rightpad">mins</p>
+                    <select name="eam">
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
+                    </select>
+                </div>
+                <br>
+                <div id="description">
+                    <label>Description:</label>
+                    <textarea name="Description"></textarea>
+                </div>
+                <br>
+                <div>
+                    <input class="loginform btn" type="submit" value="Confirm Appointment" name="submit">
+                </div>
+            </form>
+        </div>
+        <div id = "delete-box">
+                <h2>Delete Request</h2>
+                <form method="POST" action="/deleteRequest">
+                    <label>Request ID you would like to delete</label>
+                    <input type="text" name="Delete">
+                    <br>
+                    <br>
+                    <div>
+                        <input class="loginform btn" type="submit" value="Delete" name="submit">
+                    </div>
+                </form>
+        </div>
+    </div>
+    <% function format (time){%>
+        <%var builder = "";%>
+        <%time -= 10000;%>
+        <%var str = time.toString();%>
+        <%if(str.length < 4){%>
+            <%  builder += str.substring(0,1);%>
+            <%  builder += ":" + str.substring(1) + " AM";%>
+            <% }else{%>
+                <%  builder += parseInt(str.substring(0,2)) % 12;%>
+                <%   builder += ":" + str.substring(2) + " ";%>
+                <%  if(parseInt(str.substring(0,2)) > 12){%>
+                    <%   builder += "PM";%>
+        <% } else{ %>
+            <%   builder += "AM";%>
+            <%  }%>
+            <% }%>
+            <%  return builder;%>
+    <%} %>
+
+    <%if(request.length == 0){ %>
+        <h2>Requested appointment</h2>
+            <p>None</p>
+        <% }else{ %>
+        <h2>Requested appointment</h2>
+        <% for(var i = 0; i < request.length; i++){ %>
+        <% var date =  request[i].month + "/" + request[i].day; %>
+        <% var str = "Date: " + date; %>
+        
+        <% var name = request[i].firstName  + " " + request[i].lastName; %>
+        
+        <% var fStart = format(request[i].startTime); %>
+        
+        <div id="appointmentContainer">
+            <div>
+                <h3>Request id: <%= request[i].id %> </h3>
+                <p><%= str %></p>
+                <p>Name: <%= name %></p>
+                <p><%= name %> would like appointment at: <strong><%= fStart %></strong></p>
+                <p>Description: <%= request[i].description %></p>
+            </div>
+        </div>
+        <% } %>
+        <%} %>
+
+</body>
+</html>

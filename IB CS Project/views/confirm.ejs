@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Appointment</title>
+    <link rel ="stylesheet" type = "text/css" href = "/style.css">
+    
+</head>
+<body>
+    
+    <!--Header-->
+    <header id = "main-header">
+            <h1>Luxury Beauty Salon</h1>
+    </header>
+
+    <!--Navbar-->
+    <div class = "wrapper">
+        <nav id = "nav">
+            <ul> 
+                <li><a href = "Index">Home</a></li> 
+                <li><a href="AboutUs">About us</a></li>
+                <li><a href="Calendar">Calendar</a></li>
+                <li><a href="LoginToCreate">Create an appointment</a></li>
+                <li><a href="Login">Account</a></li>
+            </ul>
+        </nav>
+    </div>
+
+
+    <section class = "top-container">
+        <h1>Finalize your appointment</h1>
+    </section>
+
+    <br>
+
+    
+    <% function format (time){%>
+        <%var builder = "";%>
+        <%time -= 10000;%>
+        <%var str = time.toString();%>
+        <%if(str.length < 4){%>
+            <%  builder += str.substring(0,1);%>
+            <%  builder += ":" + str.substring(1) + " AM";%>
+            <% }else{%>
+                <%  builder += parseInt(str.substring(0,2)) % 12;%>
+                <%   builder += ":" + str.substring(2) + " ";%>
+                <%  if(parseInt(str.substring(0,2)) > 12){%>
+                    <%   builder += "PM";%>
+        <% } else{ %>
+            <%   builder += "AM";%>
+            <%  }%>
+            <% }%>
+            <%  return builder;%>
+    <%} %>
+
+    <%if(requestAppointmentObject === null){ %>
+        <p>Error please restart!</p>
+        <% }else{ %>
+            <% var date =  requestAppointmentObject.month + "/" + requestAppointmentObject.day; %>
+            <% var str = "Date: " + date; %>
+
+            <% var name = requestAppointmentObject.firstName  + " " + requestAppointmentObject.lastName; %>
+
+            <% var fStart = format(requestAppointmentObject.startTime); %>
+            <div id = "appointmentContainer">
+                <div>
+                    <p><%= str %></p>
+                    <p>Username: <%= requestAppointmentObject.username %></p>
+                    <p>Name: <%= name%> </p>
+                    <p>Appointment time: <%= fStart %></p>
+                    <p>Description: <%= requestAppointmentObject.description %></p>
+                </div>
+            </div>
+            <br>
+            <form method = "POST" action = "confirmRequest">
+                <div>
+                    <input class="loginform btn" type="submit" value="Confirm appointment" name="submit">
+                </div>
+            </form>
+        <%} %>
+    
+   
+
+</body>
+</html>

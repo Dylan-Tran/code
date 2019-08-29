@@ -1,0 +1,148 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+
+<head>
+    <title>Account Page</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+
+    <!--Header-->
+    <header id="main-header">
+        <h1>Luxury Beauty Salon</h1>
+    </header>
+
+    <!--Navbar-->
+    <div class="wrapper">
+        <nav id="nav">
+            <ul>
+                <li><a href="Index">Home</a></li>
+                <li><a href="AboutUs">About us</a></li>
+                <li><a href="Calendar">Calendar</a></li>
+                <li><a href="LoginToCreate">Create an appointment</a></li>
+                <li><a href="Login">Account</a></li>
+            </ul>
+        </nav>
+    </div>
+    <!--Header-->
+    <section class="">
+        <h1>Account Page</h1>
+    </section>
+
+    <!-- -->
+
+
+    <h2>Your information</h2>
+    <section class="twocontainer">
+        <div>
+            <section id="list">
+                <ul>
+                    <li>Username:</li>
+                    <li>Email:</li>
+                    <li>First Name:</li>
+                    <li>Last Name:</li>
+                    <li>Birthday:</li>
+                    </lu>
+                    <li>Phone Number 1:</li>
+                    <li>Phone Number 2:</li>
+                </ul>
+            </section>
+        </div>
+
+        <div>
+            <section id="listlineup">
+                <p><%= user.username %></p>
+                <p><%= user.email %></p>
+                <p><%= user.firstName %></p>
+                <p><%= user.lastName %></p>
+                
+                <% var date = user.birthday.toDateString(); %>
+                <% var builder = ""; %> %>
+                <% if(parseInt(date.substring(8,10)) < 10){ %> %>
+                 <% builder = date.substring(4,8) + (parseInt(date.substring(8,9)) + 1) + date.substring(9) %>
+                <%}else{ %>
+                <%builder = date.substring(4,8) + (parseInt(date.substring(8,10)) + 1) + date.substring(10); %>
+                <%} %>
+                
+                <p><%= builder %></p>
+                <p><%= user.phoneNumber %></p>
+                <p><%= user.phoneNumber2 %></p>
+            </section>
+        </div>
+    </section>
+
+    <h2>Appointments</h2>
+
+    <% function format (time){%>
+        <%var builder = "";%>
+        <%time -= 10000;%>
+        <%var str = time.toString();%>
+        <%if(str.length < 4){%>
+            <%  builder += str.substring(0,1);%>
+            <%  builder += ":" + str.substring(1) + " AM";%>
+            <% }else{%>
+                <%  builder += parseInt(str.substring(0,2)) % 12;%>
+                <%   builder += ":" + str.substring(2) + " ";%>
+                <%  if(parseInt(str.substring(0,2)) > 12){%>
+                    <%   builder += "PM";%>
+        <% } else{ %>
+            <%   builder += "AM";%>
+            <%  }%>
+            <% }%>
+            <%  return builder;%>
+     <%} %>
+
+    <%if(events.length == 0){ %>
+        <p>No Appointment</p>
+        <% }else{ %>
+        <% for(var i = 0; i < events.length; i++){ %>
+            <% var date =  events[i].month + "/" + events[i].day; %>
+            <% var str = "Date: " + date; %>
+            
+            <% var name = events[i].firstName  + " " + events[i].lastName; %>
+
+            <% var fStart = format(events[i].startTime); %>
+            <% var fEnd = format(events[i].endTime); %>
+            
+            <div id = "appointmentContainer">
+                <div>
+                    <h3>Appointment id: <%= events[i].id %> </h3>
+                    <p><%= str %></p>
+                    <p>Name: <%= name %></p>
+                    <p>Appointment time: <%= fStart %></p>
+                    <p>Appointment end time: <%= fEnd %></p>
+                    <p>Description: <%= events[i].description %></p>
+                </div>
+            </div>
+            <% } %>
+        <%} %>
+
+    <%if(request.length == 0){ %>
+    <h2>Requested appointment</h2>
+        <p>None</p>
+    <% }else{ %>
+    <h2>Requested appointment</h2>
+    <% for(var i = 0; i < request.length; i++){ %>
+    <% var date =  request[i].month + "/" + request[i].day; %>
+    <% var str = "Date: " + date; %>
+    
+    <% var name = request[i].firstName  + " " + request[i].lastName; %>
+    
+    <% var fStart = format(request[i].startTime); %>
+    
+    <div id="appointmentContainer">
+        <div>
+            <h3>Request id: <%= request[i].id %> </h3>
+            <p><%= str %></p>
+            <p>Name: <%= name %></p>
+            <p>Appointment time: <%= fStart %></p>
+            <p>Description: <%= request[i].description %></p>
+        </div>
+    </div>
+    <% } %>
+    <%} %>
+
+</body>
+
+</html>

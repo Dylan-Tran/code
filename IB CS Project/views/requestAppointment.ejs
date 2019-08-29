@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Appointment</title>
+    <link rel ="stylesheet" type = "text/css" href = "/style.css">
+    
+</head>
+<body>
+    
+    <!--Header-->
+    <header id = "main-header">
+            <h1>Luxury Beauty Salon</h1>
+    </header>
+
+    <!--Navbar-->
+    <div class = "wrapper">
+        <nav id = "nav">
+            <ul> 
+                <li><a href = "Index">Home</a></li> 
+                <li><a href="AboutUs">About us</a></li>
+                <li><a href="Calendar">Calendar</a></li>
+                <li><a href="LoginToCreate">Create an appointment</a></li>
+                <li><a href="Login">Account</a></li>
+            </ul>
+        </nav>
+    </div>
+
+
+    <section class = "top-container">
+        <h1>Creating appointment</h1>
+    </section>
+    
+    <h1>Check to see if there a time available for you</h1>
+    <h2><%= query.month + "/" + query.day %></h2>
+
+    <% function format (time){%>
+        <%var builder = "";%>
+        <%time -= 10000;%>
+        <%var str = time.toString();%>
+        <%if(str.length < 4){%>
+            <%  builder += str.substring(0,1);%>
+            <%  builder += ":" + str.substring(1) + " AM";%>
+            <% }else{%>
+                <%  builder += parseInt(str.substring(0,2)) % 12;%>
+                <%   builder += ":" + str.substring(2) + " ";%>
+                <%  if(parseInt(str.substring(0,2)) > 12){%>
+                    <%   builder += "PM";%>
+        <% } else{ %>
+            <%   builder += "AM";%>
+            <%  }%>
+            <% }%>
+            <%  return builder;%>
+    <%} %>
+
+    <%if(events.length == 0){ %>
+    <p>No Appointment on this day. You will be the first!</p>
+    <% }else{ %>
+    <% for(var i = 0; i < events.length; i++){ %>
+        <% var date =  events[i].month + "/" + events[i].day; %>
+        <% var str = "Date: " + date; %>
+        
+        <% var fStart = format(events[i].startTime); %>
+        <% var fEnd = format(events[i].endTime); %>
+        
+        <div id = "appointmentContainer">
+            <div>
+                <h3>Appointment id: <%= events[i].id %> </h3>
+                <p><%= str %></p>
+                <p>Name: Taken </p>
+                <p>Appointment time: <%= fStart %></p>
+                <p>Appointment end time: <%= fEnd %></p>
+                <p>Description: <%= events[i].description %></p>
+            </div>
+        </div>
+        <% } %>
+    <%} %>
+<br>
+<form method="POST" action="requestAppointment">
+    <div class="formgroup">
+        <label>When would you like your appointment to start?</label>
+        <div class="time">
+            <input type="textbox" name="shour" required>
+            <p id="rightpad">hours</p>
+            <input type="textbox" name="smin" required>
+            <p id="rightpad">mins</p>
+            <select name="sam">
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>
+            </select>
+        </div>
+    </div>
+    <br>
+    <div id="description">
+        <label>What would you like to have done? or leave a message of your specific issue.</label>
+        <textarea name="Description"></textarea>
+    </div>
+    <br>
+    <div>
+        <input class="loginform btn" type="submit" value="Request appointment" name="submit">
+    </div>
+</form>
+
+</body>
+</html>

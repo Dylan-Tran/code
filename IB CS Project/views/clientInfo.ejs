@@ -1,0 +1,59 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <title>Client Information</title>
+    <link rel ="stylesheet" type="text/css" href = "style.css">
+</head>
+<body>
+    <!--Header-->
+    <header id = "main-header">
+            <h1>Luxury Beauty Salon</h1>
+    </header>
+
+    <!--Navbar-->
+    <div class = "wrapper">
+        <nav id = "nav">
+                <ul> 
+                        <li><a href = "Index">Home</a></li> 
+                        <li><a href="AboutUs">About us</a></li>
+                        <li><a>Calendar</a></li>
+                        <li><a href="LoginToCreate">Create an appointment</a></li>
+                        <li><a href="Login">Account</a></li>
+                </ul>
+        </nav>
+    </div>
+
+    
+    <% if(information == null){ %>
+        <p>The client wasn't found try again</p> 
+    <% } else{ %>
+        <% for(var i = 0; i < information.length; i++){ %>
+            <div id = "information">
+                <ul>
+                    <li>Username: <%= information[i].Username %></li>
+                    <li> Email: <%= information[i].Email%></li>
+                    <li> First Name: <%= information[i].FirstName%></li>
+                    <li> LastName: <%= information[i].LastName%></li>
+                    <li> PhoneNumber: <%= information[i].PhoneNumber %></li>
+                    <li> PhoneNumber2: <%= information[i].PhoneNumber2 %></li>
+                    <% var date = information[i].Birthday.toDateString(); %>
+                    <% var builder = ""; %> %>
+                    <% if(parseInt(date.substring(8,10)) < 10){ %> %>
+                     <% builder = date.substring(4,8) + (parseInt(date.substring(8,9)) + 1) + date.substring(9) %>
+                    <%}else{ %>
+                    <%builder = date.substring(4,8) + (parseInt(date.substring(8,10)) + 1) + date.substring(10); %>
+                    <%} %>
+                    <li> Birthday: <%= builder %></li>
+                </ul>
+            </div>
+        <% } %>
+    <% } %>
+    <br>
+    <br>
+    <form method = "POST" action = "admin">
+            <div>
+                <input class="loginform btn" type="submit" value="Back" name="submit">
+            </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+
+<head>
+    <title>Admin page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <!--Header-->
+    <header id="main-header">
+        <h1>Luxury Beauty Salon</h1>
+    </header>
+
+    <!--Navbar-->
+    <div class="wrapper">
+        <nav id="nav">
+            <ul>
+                <li><a href="Index">Home</a></li>
+                <li><a href="AboutUs">About us</a></li>
+                <li><a href="Calendar">Calendar</a></li>
+                <li><a href="LoginToCreate">Create an appointment</a></li>
+                <li><a href="Login">Account</a></li>
+            </ul>
+        </nav>
+    </div>
+
+
+    <h1>Admin Page</h1>
+
+    <h2>Hello, Janine</h2>
+    
+    <% if(errors != undefined){ %>
+        <ul>
+            <% errors.forEach(function(error){ %>
+                <li><%= error.msg %></li>
+        <%   }) %>
+        </ul>
+    <% } %>
+
+    <ul>
+        <li><%= message%></li>
+    </ul>
+
+<div id="adminContainer">
+    <div id = "admin-box-1">
+        <h2>Create an appointment</h2>
+        <form method="POST" action="createAppointment">
+            <div class="time">
+                <label>Day of appointment</label>
+                <br>
+                <br>
+                <input type="textbox" name="month" required>
+                <p id="rightpad">Month</p>
+                <input type="textbox" name="day" required>
+                <p id="rightpad">Days</p>
+            </div>
+            <br>
+            <div class="formgroup">
+                <label>First name:</label>
+                <input type="text" name="firstName" placeholder="Enter First Name" required>
+            </div>
+            <br>
+            <div class="formgroup">
+                <label>Last name:</label>
+                <input type="text" name="lastName" placeholder="Enter Last Name" required>
+            </div>
+            <br>
+            <div class="formgroup">
+                <label>Pick a Start Time</label>
+                <div class="time">
+                    <input type="textbox" name="shour" required>
+                    <p id="rightpad">hours</p>
+                    <input type="textbox" name="smin" required>
+                    <p id="rightpad">mins</p>
+                    <select name="sam">
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
+                    </select>
+                </div>
+            </div>
+            <br>
+            <div class="time">
+                <label>Pick a End Time</label>
+                <br>
+                <input type="textbox" name="ehour" required>
+                <p id="rightpad">hours</p>
+                <input type="textbox" name="emin" required>
+                <p id="rightpad">mins</p>
+                <select name="eam">
+                    <option value="AM">AM</option>
+                    <option value="PM">PM</option>
+                </select>
+            </div>
+            <br>
+            <div id="description">
+                <label>Description:</label>
+                <textarea name="Description"></textarea>
+            </div>
+            <br>
+            <div>
+                <input class="loginform btn" type="submit" value="Add appointment" name="submit">
+            </div>
+        </form>
+    </div>
+    <div div id = "admin-box-2">
+        <h2>Search client information</h2>
+        <form method="POST" action="search">
+            <div class="formgroup">
+                <label>First Name:</label>
+                <input type="text" name="searchFirst">
+            </div>
+            <br>
+            <div class="formgroup">
+                <label>Last Name:</label>
+                <input type="text" name="searchLast">
+            </div>
+            <br>
+            <div>
+                <input class="loginform btn" type="submit" value="Search" name="submit">
+            </div>
+        </form>
+    </div>
+    <div div id = "admin-box-3">
+        <h2>Delete appointment</h2>
+        <form method="POST" action="/delete">
+            <label>Delete appointment with ID</label>
+            <input type="text" name="Delete">
+            <br>
+            <br>
+            <div>
+                <input class="loginform btn" type="submit" value="Delete" name="submit">
+            </div>
+        </form>
+    </div>
+</div>
+    <h2>Appointments: </h2>
+    
+        <% function format (time){%>
+            <%var builder = "";%>
+            <%time -= 10000;%>
+            <%var str = time.toString();%>
+            <%if(str.length < 4){%>
+                <%  builder += str.substring(0,1);%>
+                <%  builder += ":" + str.substring(1) + " AM";%>
+                <% }else{%>
+                    <%  builder += parseInt(str.substring(0,2)) % 12;%>
+                    <%   builder += ":" + str.substring(2) + " ";%>
+                    <%  if(parseInt(str.substring(0,2)) > 12){%>
+                        <%   builder += "PM";%>
+            <% } else{ %>
+                <%   builder += "AM";%>
+                <%  }%>
+                <% }%>
+                <%  return builder;%>
+                <%} %>
+
+        <%if(events === null){ %>
+        <p>No Appointment</p>
+        <% }else{ %>
+        <% for(var i = 0; i < events.length; i++){ %>
+            <% var date =  events[i].month + "/" + events[i].day; %>
+            <% var str = "Date: " + date; %>
+            
+            <% var name = events[i].firstName  + " " + events[i].lastName; %>
+
+            <% var fStart = format(events[i].startTime); %>
+            <% var fEnd = format(events[i].endTime); %>
+            
+            <div id = "appointmentContainer">
+                <div>
+                    <h3>Appointment id: <%= events[i].id %> </h3>
+                    <p><%= str %></p>
+                    <p>Name: <%= name %></p>
+                    <p>Appointment time: <%= fStart %></p>
+                    <p>Appointment end time: <%= fEnd %></p>
+                    <p>Description: <%= events[i].description %></p>
+                </div>
+            </div>
+            <% } %>
+        <%} %>
+        <h2>View requested Appointments</h2>
+        <form method = "POST" action ="redirectRequest">
+                <div>
+                        <input class="loginform btn" type="submit" value="View request" name="submit">
+                </div>
+        </form>
+</body>
+
+</html>

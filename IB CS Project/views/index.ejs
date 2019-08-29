@@ -1,0 +1,138 @@
+<!DOCTYPE <!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <title>Luxury Beauty Salon</title>
+    <link rel ="stylesheet" type = "text/css" href = "style.css">
+    <script>
+
+        const setAppCookie = () => firebase.auth().currentUser &&
+            firebase.auth().currentUser.getToken().then(token => {
+                Cookies.set('token', token, {
+                    domain: window.location.hostname,
+                    expire: 1 / 24, // One hour
+                    path: '/',
+                    secure: true // If served over HTTPS
+             });
+        });
+
+    </script>
+</head>
+<body>
+
+<!--Header-->
+<header id = "main-header">
+                <h1>Luxury Beauty Salon</h1>
+</header>
+
+<!--Navbar-->
+<div class = "wrapper">
+    <nav id = "nav">
+            <ul> 
+                    <li><a>Home</a></li> 
+                    <li><a href="AboutUs">About us</a></li>
+                    <li><a href="Calendar">Calendar</a></li>
+                    <li><a href="LoginToCreate">Create an appointment</a></li>
+                    <li><a href="Login">Account</a></li>
+                </ul>
+    </nav>
+</div>
+
+<!--Top containter-->
+<section class="top-containter">
+        <h2>Our Promise</h2>
+            <p>To develop and maintain customer relationships by providing exceptional 
+                service accompanied by a high level of professionalism.
+            </p>
+                <ul>
+                    <li>Clients can request anyone for their service.</li>
+                    <li>Appointment or walk-in welcome.</li>
+                </ul>
+</section>
+
+<img src="nail.JPG" alt="">
+
+<section>
+    <h2>Location</h2>
+        <ul>
+            <a href = "https://www.google.com/maps/place/Palms+Nail+Spa/@26.8397124,-80.0631964,14.75z/data=!4m12!1m6!3m5!1s0x0:0xba68e0e1e9350c47!2sPalms+Nail+Spa!8m2!3d26.8411832!4d-80.0635781!3m4!1s0x0:0xba68e0e1e9350c47!8m2!3d26.8411832!4d-80.0635781">120 U.S. Highway 1 Suite 4, North Palm Beach, FL 33408</a>
+            <br>
+            <br>
+        </ul>
+</section>
+
+<h2>Hours of Operation</h2>
+<section class = "box-container-two">
+            <div class = "box">
+                <p id="strong">Monday: </p> 
+                <p id="indent">9:30 AM - 2.30 PM</p>
+                <p id="strong">Tuesday:</p> 
+                <p id="indent">9:30 AM - 5:00 PM</p>
+                <p id="strong">Wednesday:</p>
+                <p id="indent"> 9:30 AM - 5:00 PM</p>
+                <p id="strong">Thrusday:</p>
+                <p id="indent"> 9:30 AM - 5:00 PM</p>
+            </div>
+            <div class = "box">
+                <p id="strong">Friday: </p> 
+                <p id="indent">9:30 AM - 7:00 PM</p>
+                <p id="strong">Saturday:</p>
+                <p id="indent"> 9:00 AM - 5:00 PM</p>
+                <p id="strong">Sunday:</p> 
+                <p id="indent"> closed</p>
+                <p></p>
+                <p></p>
+            </div>
+        </ul>
+</section>
+
+<br>
+<br>
+
+<div class = container>
+
+
+    <div class = "block">
+            <h2>Nails</h2>
+            <p>Be more beautiful and stylish with our nail service. All of the staff are well-trained, careful and 
+            whole-hearted. Take the time from your busy schedule to help your nails and feet look their best.</p>
+    </div>
+
+    <div class = "block">
+            <h2>Waxing</h2>
+            <p>We understand that waxing is personal, so we’re committed to making you comfortable, both through 
+            friendly, straightforward service and the very best waxing products available.</p>
+        </div>
+
+
+        <div class = "block">
+            <h2>Massage</h2> 
+            <p>We understand that you live a stressful life, so, allow us relief your body of stress 
+                by provide customizable messages tailor towards your body's needs. 
+            </p>
+        </div>
+
+
+        <div class = "block">
+            <h2>Skincare</h2>
+            <p>Our skincare are customized to fit the individual needs of our clients. We use only the highest quality 
+                products. We carefully evaluate your skin to determine the treatment that is best suited to you.</p>
+        </div>    
+        
+            
+        <div class = "blocknone">  
+            <section id = "gettingstarted">
+                <a href = "Login" class="btn">Schedule Appointment</a>
+                <p>Number: (561) 845-7673</p>
+            </section>
+        </div>
+
+
+        <div class = "block">
+            <h2>Hair Services</h2>
+            <p>We provides clients with high-quality hair and beauty services to meet individual needs and tastes.</p>
+        </div>
+</div> 
+    
+    
+</body>
+</html>

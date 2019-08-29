@@ -1,0 +1,46 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <title>Calendar</title>
+    <link rel ="stylesheet" type="text/css" href = "style.css">
+</head>
+<body>
+    <!--Header-->
+    <header id = "main-header">
+            <h1>Luxury Beauty Salon</h1>
+    </header>
+
+    <!--Navbar-->
+    <div class = "wrapper">
+        <nav id = "nav">
+                <ul> 
+                        <li><a href = "Index">Home</a></li> 
+                        <li><a href="AboutUs">About us</a></li>
+                        <li><a>Calendar</a></li>
+                        <li><a href="LoginToCreate">Create an appointment</a></li>
+                        <li><a href="Login">Account</a></li>
+                </ul>
+        </nav>
+    </div>
+
+        <h1>Calendar</h1>
+        <p>Click on a day you want to check out!</p>
+
+        <form method="POST" action="searchDay">
+            <div class="time">
+                <label>Day of appointment</label>
+                <br>
+                <br>
+                <input type="textbox" name="month" required>
+                <p id="rightpad">Month</p>
+                <input type="textbox" name="day" required>
+                <p id="rightpad">Days</p>
+            </div>
+            <br>
+           <div>
+                <input class = "loginform btn" type = "submit" value="Search" name = "submit">
+            </div>
+        </form>
+    
+</body>
+</html>

@@ -1,0 +1,380 @@
+/* CSS Variables */
+:root{
+    --pink: #ffd9de; /*background*/
+    --maroon: #900C3F;
+}
+
+html{
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+}
+
+body {
+    background: var(--pink);
+    margin: 10%;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.btn {
+    background: lightblue;
+    color: black;
+    text-decoration: none;
+    border:0;
+    padding: 20px;
+    border: 1px solid var(--maroon)
+}
+
+.btn:hover{
+    background: lightgray;
+}
+
+
+.btn hover{
+    background: lightgray;
+}
+
+.wrapper{
+    display: grid;
+    grid-gap: 20px;
+}
+
+/*header*/
+#main-header {
+    background-color: var(--pink);
+    color: black;
+    font-size: 30px;
+}
+
+/*Navbar*/
+#nav ul{
+    display: grid;
+    grid-gap: 20px;
+    padding: 0;
+    list-style: none;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+#nav a{
+    background: white;
+    display: block;
+    text-decoration: none;
+    padding: .8rem;
+    text-align: center;
+    color: black;
+    font-size: 1.1rem;
+    box-shadow: 10000rem;
+    border: 2px steelblue solid;
+}
+
+#nav a:hover{
+    background: lightgray;
+}
+
+.top-container {
+    display:grid;
+    grid-gap: 20px;
+}
+
+
+.box-container-two {
+    display: grid;
+    padding: 0px;
+    margin: 0px;
+    grid-template-columns: 1fr 2fr;
+}
+.box-container-three {
+    display: grid;
+    padding: 0px;
+    margin: 0px;
+    grid-template-columns: 1fr 1fr 2fr;
+}
+
+.box {
+    display:grid;
+}
+
+.box p{
+    margin-block-end: 0em;
+    height: 18px;
+    margin-block-start: .5em;
+}
+
+#indent {
+    font-weight: none;
+    padding-left:30px;
+}
+
+#strong {
+    font-weight: bold;
+}
+
+.container {
+    display: grid;
+    grid-template: 200px 200px / 33% 33% 33%;
+    grid-gap: 10px;
+}
+
+.block {
+    text-align:center;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    border: 2px solid var(--maroon);
+}
+
+.block h2{
+    padding: 0px;
+    padding-bottom: 1px;
+    margin: 0px;
+}
+.blocknone {
+    border: none;
+    padding: 10px 20px;
+}
+
+#gettingstarted {
+    margin: 0px;
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    font-size: 20px;
+    padding: 20px;
+}
+
+.loginform {
+    padding:20px;
+    font-size: 16px;
+}
+
+.loginform .formgroup{
+    padding-bottom:15px;
+}
+
+.loginform label{
+    display:block;
+}
+
+.loginform input[type = "text"]{
+    padding:8px;
+    width:40%;
+}
+
+.loginform input[type = "number"]{
+    padding:8px;
+    width:40%;
+}
+
+.loginform input[type = "password"]{
+    padding: 8px;
+    width: 40%;
+}
+
+.loginform input[type = "submit"]{
+    background-color:lightblue;
+    color: black;
+    text-decoration: none;
+    border:0;
+    padding: 20px;
+    border: 1px solid var(--maroon);
+    margin-right: 100px;
+}
+.loginform button[type = "button"]{
+    background-color:lightblue;
+    color: black;
+    text-decoration: none;
+    border:0;
+    padding: 20px;
+    border: 1px solid var(--maroon);
+    margin-right: 100px;
+}
+
+.loginform button:hover{
+    background-color: lightgray;
+}
+
+.loginform input[type = "submit"]:hover{
+    background-color: lightgray;
+}
+
+.loginform input[type = "date"]{
+    padding:8px;
+    width:40%;
+}
+
+.loginform input[type = "time"]{
+    padding:8px;
+    width:40%;
+}
+
+.essay {
+    display:block;
+    font-size:16px;
+}
+
+.essay p{
+    padding-left: 20px;
+    line-height: 1.6;
+}
+
+
+/*Account*/
+#appointmentContainer {
+    padding: 10px;
+    overflow: hidden;
+    display:flex;
+    border: 1px solid steelblue;
+}
+
+.twocontainer {
+    display:grid;
+    grid-template-columns: 60% 40%;
+}
+
+#list ul {
+    list-style: none;
+    margin:0px;
+}
+
+#list li {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-weight:bold; 
+}
+
+#listlineup {
+    margin:0px;
+}
+
+#listlineup p{
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin:0px;
+}
+
+.checkbox {
+    display: grid;
+    grid-template-rows: 40px 50px repeat(5, 30px)
+}
+
+.checkbox h2{
+    margin:0px;
+}
+
+.checkbox p {
+    padding-top: 10px;
+    padding-left: 20px;
+    margin: 0px;
+    font-size:16px;
+    padding-bottom: 20px;
+}
+
+.checkbox input{
+    height:20px;
+    width: 20px;
+    background-color: lightgray;
+}
+
+.checkbox input:hover{
+    background-color: lightblue;
+}
+
+.checkboxcontainer {
+    padding-left: 60px;
+    display: grid;
+    grid-template-columns: 300px 200px
+}
+
+.checkboxcontainer label{
+    font-weight: normal;
+    padding: 5;
+}
+
+#Settingupappointment{
+    display: grid;
+    grid-template-rows: 100px 100px;
+    grid-gap: 10px;
+}
+
+#Settingupappointment label{
+    padding-bottom: 20px;
+}
+
+
+#fakebutton [type="button"] {
+    width: 120px;
+    height: 60px;
+    margin-left: 35px;
+    display: block;
+    background-color: gray;
+    color: white;
+    border: none;
+  }
+
+  .time p{
+      display: inline;
+  }
+
+  .time [type = "textbox"]{ 
+    width: 40px;
+    height: 20px;
+  }
+  
+  #rightpad {
+      padding-right: 20px;
+  }
+
+  
+
+  #information {
+      font-size: 16px;
+      color: black;
+      border: 1px solid black;
+  }
+
+  #information ul{
+      list-style: none;
+      padding: 10px;
+  }
+
+#information li{
+      text-decoration: none;
+      padding-bottom: 10px;
+}
+
+#adminContainer{
+      display:flex;
+}
+
+#admin-box-1{
+    flex:3
+}
+
+#descripition label{
+    position: top;
+}
+#description textarea{
+   width: 80%;
+   height: 100px;
+   text-align: left;
+   font-size: 16px;
+   background-color: white;
+   padding: 0;
+   display: flex;
+}
+  
+#admin-box-2{
+      flex:2
+}
+
+#admin-box-3{
+      flex:2
+}
+
+#confirm-box{
+    flex:1
+}
+
+#delete-box{
+    flex:1
+}

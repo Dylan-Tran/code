@@ -1,0 +1,85 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <title>Calendar Search</title>
+    <link rel ="stylesheet" type="text/css" href = "style.css">
+</head>
+<body>
+    <!--Header-->
+    <header id = "main-header">
+            <h1>Luxury Beauty Salon</h1>
+    </header>
+
+    <!--Navbar-->
+    <div class = "wrapper">
+        <nav id = "nav">
+                <ul> 
+                        <li><a href = "Index">Home</a></li> 
+                        <li><a href="AboutUs">About us</a></li>
+                        <li><a href= "calendar">Calendar</a></li>
+                        <li><a href="LoginToCreate">Create an appointment</a></li>
+                        <li><a href="Login">Account</a></li>
+                </ul>
+        </nav>
+    </div>
+
+    <h1>When planning an appointment make sure it doesn't conflict with any other appointment</h1>
+
+    <h2><%= query.month + "/" + query.day %></h2>
+
+    <% function format (time){%>
+        <%var builder = "";%>
+        <%time -= 10000;%>
+        <%var str = time.toString();%>
+        <%if(str.length < 4){%>
+            <%  builder += str.substring(0,1);%>
+            <%  builder += ":" + str.substring(1) + " AM";%>
+            <% }else{%>
+                <%  builder += parseInt(str.substring(0,2)) % 12;%>
+                <%   builder += ":" + str.substring(2) + " ";%>
+                <%  if(parseInt(str.substring(0,2)) > 12){%>
+                    <%   builder += "PM";%>
+        <% } else{ %>
+            <%   builder += "AM";%>
+            <%  }%>
+            <% }%>
+            <%  return builder;%>
+    <%} %>
+
+    <%if(events.length == 0){ %>
+    <p>No Appointment on this day</p>
+        <form method="POST" action ="redirectCreate">
+            <div>
+                <input class = "loginform btn" type = "submit" value="Create an appointment" name = "submit">
+            </div>
+        </form>
+    <% }else{ %>
+    <% for(var i = 0; i < events.length; i++){ %>
+        <% var date =  events[i].month + "/" + events[i].day; %>
+        <% var str = "Date: " + date; %>
+        
+        <% var fStart = format(events[i].startTime); %>
+        <% var fEnd = format(events[i].endTime); %>
+        
+        <div id = "appointmentContainer">
+            <div>
+                <h3>Appointment id: <%= events[i].id %> </h3>
+                <p><%= str %></p>
+                <p>Name: Taken </p>
+                <p>Appointment time: <%= fStart %></p>
+                <p>Appointment end time: <%= fEnd %></p>
+                <p>Description: <%= events[i].description %></p>
+            </div>
+        </div>
+        <% } %>
+        <br>
+        <form method="POST" action ="redirectCreate">
+            <div>
+                <input class = "loginform btn" type = "submit" value="Create an appointment" name = "submit">
+            </div>
+        </form>
+    <%} %>
+
+
+</body>
+</html>
